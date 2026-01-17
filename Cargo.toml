@@ -1,0 +1,17 @@
+[package]
+name = "macos-on-swipe"
+version = "0.1.0"
+edition = "2021"
+description = "Detect three-finger trackpad swipe gestures and execute a script"
+license = "MIT"
+
+[dependencies]
+# Core Foundation for accessibility APIs
+core-foundation = "0.10"
+
+# Home directory detection
+dirs = "5.0"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
