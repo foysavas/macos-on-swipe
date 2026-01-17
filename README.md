@@ -13,7 +13,12 @@ A macOS application that detects three-finger trackpad swipe gestures and execut
 ### Homebrew
 
 ```bash
-brew install --HEAD foysavas/macos-on-swipe/macos-on-swipe
+brew install --HEAD foysavas/tap/macos-on-swipe
+```
+
+To start automatically at login:
+```bash
+brew services start macos-on-swipe
 ```
 
 ### From Source
