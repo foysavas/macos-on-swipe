@@ -8,15 +8,21 @@ A macOS application that detects three-finger trackpad swipe gestures and execut
 - Runs as a background process (no dock icon)
 - Executes `~/.config/macos-on-swipe/handle-swipe.sh` with direction argument (`left`, `right`, `up`, `down`)
 
-## Requirements
+## Installation
 
-- macOS (tested on macOS 12+)
-- Rust toolchain (install via [rustup](https://rustup.rs/))
-- Accessibility permissions
-
-## Building
+### Homebrew
 
 ```bash
+brew install --HEAD foysavas/macos-on-swipe/macos-on-swipe
+```
+
+### From Source
+
+Requires Rust toolchain (install via [rustup](https://rustup.rs/)):
+
+```bash
+git clone https://github.com/foysavas/macos-on-swipe.git
+cd macos-on-swipe
 cargo build --release
 ```
 
@@ -55,7 +61,7 @@ chmod +x ~/.config/macos-on-swipe/handle-swipe.sh
 2. Run the app:
 
 ```bash
-./target/release/macos-on-swipe
+macos-on-swipe
 ```
 
 3. Grant **Accessibility** permission when prompted (System Settings → Privacy & Security → Accessibility)
@@ -72,7 +78,20 @@ By default, macOS uses three-finger swipes for system gestures. To avoid conflic
 
 ## Running at Login
 
-Create `~/Library/LaunchAgents/com.user.macos-on-swipe.plist`:
+### With Homebrew
+
+```bash
+brew services start macos-on-swipe
+```
+
+To stop:
+```bash
+brew services stop macos-on-swipe
+```
+
+### Manual Setup
+
+If you built from source, create `~/Library/LaunchAgents/com.user.macos-on-swipe.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
