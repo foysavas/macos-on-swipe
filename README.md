@@ -6,7 +6,7 @@ A macOS application that detects three-finger trackpad swipe gestures and execut
 
 - Detects three-finger swipe gestures globally (system-wide)
 - Runs as a background process (no dock icon)
-- Executes `~/.config/macos-on-swipe/handle-swipe.sh` with direction argument (`left`, `right`, `up`, `down`)
+- Executes `~/.config/macos-on-swipe/handle-swipe.sh` with two arguments: direction (`left`, `right`, `up`, `down`) and finger count
 
 ## Installation
 
@@ -43,19 +43,22 @@ mkdir -p ~/.config/macos-on-swipe
 cat > ~/.config/macos-on-swipe/handle-swipe.sh << 'EOF'
 #!/bin/bash
 direction="$1"
+fingers="$2"
+
+echo "Swiped $direction with $fingers fingers"
 
 case "$direction" in
     left)
-        echo "Swiped left!"
+        # Handle left swipe
         ;;
     right)
-        echo "Swiped right!"
+        # Handle right swipe
         ;;
     up)
-        echo "Swiped up!"
+        # Handle up swipe
         ;;
     down)
-        echo "Swiped down!"
+        # Handle down swipe
         ;;
 esac
 EOF
@@ -72,6 +75,41 @@ macos-on-swipe
 3. Grant **Accessibility** permission when prompted (System Settings → Privacy & Security → Accessibility)
 
 4. On newer macOS versions, you may also need **Input Monitoring** permission (System Settings → Privacy & Security → Input Monitoring)
+
+## Configuration
+
+Optionally create a config file at `~/.config/macos-on-swipe/config.toml`:
+
+```toml
+# Minimum fingers required for swipe (default: 3)
+min_fingers = 3
+
+# Ignore touches within this margin of trackpad edges (0.0 - 0.5)
+# Higher = larger ignore zone (helps with palm rejection)
+# Default: 0.0
+edge_margin = 0.1
+
+# Minimum touch pressure to count as a finger (0.0 - 1.0)
+# Higher = ignore lighter touches (helps with palm rejection)
+# Default: 0.0
+min_pressure = 0.0
+
+# Cooldown after two-finger gestures (milliseconds)
+# Ignores multi-finger gestures for this duration after a two-finger gesture ends
+# Helps prevent accidental swipes when lifting fingers from scroll
+# Default: 0 (disabled)
+two_finger_cooldown_ms = 200
+
+# Swipe sensitivity thresholds per direction (0.0 - 1.0)
+# Lower = more sensitive, Higher = less sensitive
+# Default: 0.10 (10% of trackpad)
+left = 0.10
+right = 0.10
+up = 0.10
+down = 0.10
+```
+
+All settings are optional and will use defaults if not specified.
 
 ## Trackpad Settings
 
